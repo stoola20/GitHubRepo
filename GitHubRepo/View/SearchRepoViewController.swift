@@ -92,8 +92,9 @@ class SearchRepoViewController: UIViewController {
             .asObservable()
             .withUnretained(self)
             .subscribe { owner, errorMessage in
-                print(errorMessage)
-                owner.refreshControl.endRefreshing()
+                owner.showAlert(title: "Oops!", message: errorMessage, confirm: {
+                    owner.refreshControl.endRefreshing()
+                })
             }
             .disposed(by: disposeBag)
 

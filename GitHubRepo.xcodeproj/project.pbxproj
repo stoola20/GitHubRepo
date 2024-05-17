@@ -24,6 +24,7 @@
 		F998B2822BF761780069EB08 /* SearchRepoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F998B2802BF761780069EB08 /* SearchRepoListCell.xib */; };
 		F998B2852BF773D90069EB08 /* TableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998B2842BF773D90069EB08 /* TableView+Ext.swift */; };
 		F998B2892BF773F20069EB08 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998B2882BF773F20069EB08 /* UIImageView+Ext.swift */; };
+		F998B28B2BF7AE130069EB08 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998B28A2BF7AE130069EB08 /* UIViewController+Ext.swift */; };
 		FC8B76D9D9799CED38F2688B /* Pods_GitHubRepo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC7C5A40C06680DE834FE8D /* Pods_GitHubRepo.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		F998B2802BF761780069EB08 /* SearchRepoListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchRepoListCell.xib; sourceTree = "<group>"; };
 		F998B2842BF773D90069EB08 /* TableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Ext.swift"; sourceTree = "<group>"; };
 		F998B2882BF773F20069EB08 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
+		F998B28A2BF7AE130069EB08 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		FEC7C5A40C06680DE834FE8D /* Pods_GitHubRepo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubRepo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 			children = (
 				F998B2842BF773D90069EB08 /* TableView+Ext.swift */,
 				F998B2882BF773F20069EB08 /* UIImageView+Ext.swift */,
+				F998B28A2BF7AE130069EB08 /* UIViewController+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			files = (
 				F998B27A2BF73FF60069EB08 /* SearchRepoViewModel.swift in Sources */,
 				F998B2852BF773D90069EB08 /* TableView+Ext.swift in Sources */,
+				F998B28B2BF7AE130069EB08 /* UIViewController+Ext.swift in Sources */,
 				F998B25D2BF726DA0069EB08 /* SearchRepoViewController.swift in Sources */,
 				F998B2772BF737F30069EB08 /* RepoModel.swift in Sources */,
                 F9D89B0D2BFA29F5003E1B9F /* PersonalAccessToken.swift in Sources */,

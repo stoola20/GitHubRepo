@@ -35,9 +35,9 @@ class SearchRepoListCell: UITableViewCell {
         avatarImageView.contentMode = .scaleAspectFill
 
         repoNameLabel.font = .boldSystemFont(ofSize: 17)
-        repoNameLabel.numberOfLines = 0
+        repoNameLabel.numberOfLines = 1
 
         descriptionLabel.font = .systemFont(ofSize: 15)
-        descriptionLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = 3
     }
 }

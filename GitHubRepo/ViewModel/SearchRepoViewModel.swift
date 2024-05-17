@@ -89,5 +89,13 @@ class SearchRepoViewModel: SearchRepoViewModelInputs, SearchRepoViewModelOutputs
             .map { $0.items }
             .bind(to: repoListRelay)
             .disposed(by: disposeBag)
+        
+        searchQueryRelay
+            .asObservable()
+            .withUnretained(self)
+            .subscribe { owner, queryString in
+                owner.repoListRelay.accept([])
+            }
+            .disposed(by: disposeBag)
     }
 }

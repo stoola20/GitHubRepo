@@ -6,6 +6,25 @@
 //
 
 import Foundation
+import RxDataSources
+
+/// Structure representing a section in a repo list, containing a header and a list of items.
+/// This custom structure can be pass to RxDataSources as section type.
+struct SearchRepoSection: SectionModelType {
+    /// The header title of the section.
+    var header: String
+    /// The items contained within the section.
+    var items: [Item]
+}
+
+extension SearchRepoSection {
+    typealias Item = SearchRepoItem
+
+    init(original: SearchRepoSection, items: [SearchRepoItem]) {
+        self = original
+        self.items = items
+    }
+}
 
 /// This structure represents a list of repositories returned from a search query.
 struct SearchRepoList: Decodable {
@@ -31,7 +50,7 @@ struct RepoOwner: Decodable {
     /// The username of the GitHub user.
     let login: String
     /// The URL of the avatar image for the GitHub user.
-    let avatarURL: String?
+    let avatarUrl: String?
 }
 
 /// This structure represents detailed information about a single repository.

@@ -31,7 +31,7 @@ struct RepoOwner: Decodable {
     /// The username of the GitHub user.
     let login: String
     /// The URL of the avatar image for the GitHub user.
-    let avatarURL: String
+    let avatarURL: String?
 }
 
 /// This structure represents detailed information about a single repository.

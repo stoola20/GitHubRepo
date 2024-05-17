@@ -82,6 +82,8 @@ enum ServerError: Error {
     case parsingFailure
     /// Indicates an unknown error.
     case unknownError
+    /// Indicates empty query error.
+    case emptyQuery
 }
 
 extension ServerError {
@@ -94,6 +96,8 @@ extension ServerError {
             return "Failed to parse the response data."
         case .unknownError:
             return "An unknown error occurred."
+        case .emptyQuery:
+            return "The data couldn't be read because it is missing."
         }
     }
 }
@@ -106,7 +110,7 @@ enum ErrorStatusCode: Int {
     case sc404 = 404
     case sc422 = 422
     case sc503 = 503
-    
+
     /// Provides a human-readable description for each error status code.
     var description: String {
         switch self {

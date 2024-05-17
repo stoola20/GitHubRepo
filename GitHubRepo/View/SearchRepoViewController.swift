@@ -32,11 +32,21 @@ class SearchRepoViewController: UIViewController {
         searchController.searchBar.rx.searchButtonClicked
             .withUnretained(self)
             .subscribe { owner, _ in
-                owner.viewModel.inputs.searchRepo()
+                owner.viewModel.inputs.searchTriggerRelay.accept(())
             }
             .disposed(by: disposeBag)
 
         return searchController
+    }()
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+
+        refreshControl.rx.controlEvent(.valueChanged)
+            .bind(to: viewModel.inputs.searchTriggerRelay)
+            .disposed(by: disposeBag)
+
+        return refreshControl
     }()
 
     private let disposeBag = DisposeBag()
@@ -68,35 +78,38 @@ class SearchRepoViewController: UIViewController {
             .map { [SearchRepoSection(header: "", items: $0)] }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        viewModel.outputs
+            .repoListRelay
+            .asObservable()
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.refreshControl.endRefreshing()
+            }
+            .disposed(by: disposeBag)
 
         viewModel.outputs.errorRelay
             .asObservable()
-            .subscribe { errorMessage in
+            .withUnretained(self)
+            .subscribe { owner, errorMessage in
                 print(errorMessage)
+                owner.refreshControl.endRefreshing()
             }
             .disposed(by: disposeBag)
+
     }
 
     /// Sets up the table view
     private func setUpTableView() {
         tableView.register(cell: SearchRepoListCell.self)
         tableView.keyboardDismissMode = .onDrag
+        tableView.addSubview(refreshControl)
     }
 
     private func configureNav() {
         title = "Repository Search"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.hidesSearchBarWhenScrolling = true
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
-    }
-    
-    func hideKeyboard() {
-        view.endEditing(true)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        view.endEditing(true)
     }
 }

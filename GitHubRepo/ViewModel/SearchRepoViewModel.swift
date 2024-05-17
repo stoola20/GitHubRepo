@@ -11,8 +11,8 @@ import RxSwift
 
 /// Protocol defining the inputs required for the search repository view model.
 protocol SearchRepoViewModelInputs {
-    /// Triggers the search operation.
-    func searchRepo()
+    /// Relay for triggering the search operation.
+    var searchTriggerRelay: PublishRelay<Void> { get }
     /// Relay for holding the search query string.
     var searchQueryRelay: BehaviorRelay<String> { get }
 }
@@ -44,10 +44,7 @@ class SearchRepoViewModel: SearchRepoViewModelInputs, SearchRepoViewModelOutputs
     // MARK: Inputs
 
     let searchQueryRelay: BehaviorRelay<String> = .init(value: "")
-    private let searchTriggerRelay: PublishRelay<Void> = .init()
-    func searchRepo() {
-        searchTriggerRelay.accept(())
-    }
+    let searchTriggerRelay: PublishRelay<Void> = .init()
 
     // MARK: Outputs
 
@@ -89,7 +86,7 @@ class SearchRepoViewModel: SearchRepoViewModelInputs, SearchRepoViewModelOutputs
             .map { $0.items }
             .bind(to: repoListRelay)
             .disposed(by: disposeBag)
-        
+
         searchQueryRelay
             .asObservable()
             .withUnretained(self)

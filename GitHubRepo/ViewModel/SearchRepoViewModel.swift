@@ -66,6 +66,7 @@ class SearchRepoViewModel: SearchRepoViewModelInputs, SearchRepoViewModelOutputs
                     return Observable.empty()
                 }
 
+                // Perform the search repository operation.
                 return owner.interactor.searchRepo(
                     query: query,
                     sort: nil,
@@ -82,15 +83,17 @@ class SearchRepoViewModel: SearchRepoViewModelInputs, SearchRepoViewModelOutputs
             }
             .share()
 
+        // Bind search results to the repoListRelay.
         searchTrigger
             .map { $0.items }
             .bind(to: repoListRelay)
             .disposed(by: disposeBag)
 
+        // Observe search query changes and clear the repository list when the query changes.
         searchQueryRelay
             .asObservable()
             .withUnretained(self)
-            .subscribe { owner, queryString in
+            .subscribe { owner, _ in
                 owner.repoListRelay.accept([])
             }
             .disposed(by: disposeBag)

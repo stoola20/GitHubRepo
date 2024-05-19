@@ -13,6 +13,7 @@ import UIKit
 class SearchRepoViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 
+    /// Search controller for managing the search bar and search results.
     lazy var searchController: UISearchController = {
         let searchController = UISearchController()
 
@@ -21,6 +22,7 @@ class SearchRepoViewController: UIViewController {
         searchController.searchBar.showsCancelButton = false
         searchController.hidesNavigationBarDuringPresentation = false
 
+        // Handle text changes in the search bar.
         searchController.searchBar.rx.text
             .distinctUntilChanged()
             .withUnretained(self)
@@ -29,6 +31,7 @@ class SearchRepoViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        // Handle search button click.
         searchController.searchBar.rx.searchButtonClicked
             .withUnretained(self)
             .subscribe { owner, _ in
@@ -39,9 +42,11 @@ class SearchRepoViewController: UIViewController {
         return searchController
     }()
 
+    /// Refresh control for the table view.
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
 
+        // Bind the refresh control to the search trigger.
         refreshControl.rx.controlEvent(.valueChanged)
             .bind(to: viewModel.inputs.searchTriggerRelay)
             .disposed(by: disposeBag)
@@ -51,6 +56,7 @@ class SearchRepoViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
     private let viewModel = SearchRepoViewModel()
+
     /// Data source for configuring table view sections and cells.
     private let dataSource = RxTableViewSectionedReloadDataSource<SearchRepoSection> { _, tableView, indexPath, item in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchRepoListCell.self), for: indexPath) as? SearchRepoListCell else {
@@ -72,6 +78,7 @@ class SearchRepoViewController: UIViewController {
 
     /// Binds the view model outputs to UI elements.
     private func bindViewModel() {
+        // Bind the repository list to the table view.
         viewModel.outputs
             .repoListRelay
             .asObservable()
@@ -79,6 +86,7 @@ class SearchRepoViewController: UIViewController {
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
 
+        // Handle the end of the refresh control's animation when new data is loaded.
         viewModel.outputs
             .repoListRelay
             .asObservable()
@@ -88,6 +96,7 @@ class SearchRepoViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        // Display an alert in case of errors.
         viewModel.outputs.errorRelay
             .asObservable()
             .withUnretained(self)
@@ -131,6 +140,7 @@ class SearchRepoViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
+    /// Configures the navigation bar for the view controller.
     private func configureNav() {
         title = "Repository Search"
         navigationController?.navigationBar.prefersLargeTitles = true

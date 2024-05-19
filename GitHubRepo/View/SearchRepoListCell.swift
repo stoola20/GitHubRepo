@@ -25,12 +25,16 @@ class SearchRepoListCell: UITableViewCell {
         avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2
     }
 
+    /// Configures the cell with repository data.
+    ///
+    /// - Parameter repo: The repository data to display.
     func configureCell(with repo: SearchRepoItem) {
         avatarImageView.loadImage(repo.owner.avatarUrl)
         repoNameLabel.text = repo.fullName
         descriptionLabel.text = repo.description
     }
 
+    /// Sets up the initial UI configurations for the cell.
     private func setUpUI() {
         avatarImageView.contentMode = .scaleAspectFill
 

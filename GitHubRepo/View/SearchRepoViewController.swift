@@ -138,6 +138,20 @@ class SearchRepoViewController: UIViewController {
                 owner.navigationController?.pushViewController(detailViewController, animated: true)
             }
             .disposed(by: disposeBag)
+
+        tableView.rx.contentOffset
+            .map { $0.y }
+            .distinctUntilChanged()
+            .withUnretained(self)
+            .subscribe { owner, offsetY in
+                let query = owner.viewModel.inputs.searchQueryRelay.value
+                owner.searchController.searchBar.searchTextField.text = query
+
+                owner.navigationItem.searchController = offsetY > 0
+                    ? nil
+                    : owner.searchController
+            }
+            .disposed(by: disposeBag)
     }
 
     /// Configures the navigation bar for the view controller.
@@ -146,5 +160,9 @@ class SearchRepoViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
+
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        navigationItem.standardAppearance = standardAppearance
     }
 }

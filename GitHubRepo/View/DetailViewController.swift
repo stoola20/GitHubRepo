@@ -9,7 +9,16 @@ import RxSwift
 import UIKit
 
 class DetailViewController: UIViewController {
-    
+    // MARK: UIView
+
+    @IBOutlet var avatarImageView: UIImageView!
+    @IBOutlet var fullNameLabel: UILabel!
+    @IBOutlet var languageLabel: UILabel!
+    @IBOutlet var starsLabel: UILabel!
+    @IBOutlet var watchersLabel: UILabel!
+    @IBOutlet var forksLabel: UILabel!
+    @IBOutlet var issuesLabel: UILabel!
+
     private let disposeBag = DisposeBag()
     let viewModel: DetailViewModel
     
@@ -33,6 +42,8 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
+        configureNav()
+        setUpUI()
         // Trigger fetching of repository details.
         viewModel.getRepoRelay.accept(())
     }
@@ -43,8 +54,8 @@ class DetailViewController: UIViewController {
         viewModel.outputs.detailRepoRelay
             .asObservable()
             .withUnretained(self)
-            .subscribe { _, detailRepo in
-                print(detailRepo)
+            .subscribe { owner, detailRepo in
+                owner.configureUI(with: detailRepo)
             }
             .disposed(by: disposeBag)
         
@@ -53,8 +64,45 @@ class DetailViewController: UIViewController {
             .asObservable()
             .withUnretained(self)
             .subscribe { owner, errorMessage in
-                owner.showAlert(title: "Oops", message: errorMessage)
+                owner.showAlert(title: "Oops", message: errorMessage, confirm: {
+                    owner.navigationController?.popViewController(animated: true)
+                })
             }
             .disposed(by: disposeBag)
+    }
+    
+    /// Configures the navigation bar for the view controller.
+    private func configureNav() {
+        // Set the title of the navigation bar to the repository owner's name.
+        title = "\(viewModel.ownerRelay.value!)"
+        // Set the tint color of the navigation bar to black.
+        navigationController?.navigationBar.tintColor = .black
+    }
+    
+    /// Sets up the initial UI configuration for the view controller.
+    private func setUpUI() {
+        avatarImageView.contentMode = .scaleAspectFill
+        fullNameLabel.font = .systemFont(ofSize: 30, weight: .semibold)
+        languageLabel.font = .systemFont(ofSize: 17, weight: .semibold)
+        
+        starsLabel.textAlignment = .right
+        watchersLabel.textAlignment = .right
+        forksLabel.textAlignment = .right
+        issuesLabel.textAlignment = .right
+    }
+    
+    /// Configures the UI elements with the provided repository details.
+    ///
+    /// - Parameter repo: The detailed repository information.
+    private func configureUI(with repo: DetailRepo) {
+        avatarImageView.loadImage(repo.owner.avatarUrl)
+        fullNameLabel.text = repo.fullName
+        languageLabel.text = repo.language != nil
+            ? "Written in \(repo.language!)"
+            : "Null"
+        starsLabel.text = "\(repo.stargazersCount) stars"
+        watchersLabel.text = "\(repo.watchersCount) watchers"
+        forksLabel.text = "\(repo.forksCount) forks"
+        issuesLabel.text = "\(repo.openIssuesCount) open issues"
     }
 }

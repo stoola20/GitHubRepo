@@ -12,7 +12,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailViewController" customModule="GitHubRepo" customModuleProvider="target">
             <connections>
+                <outlet property="avatarImageView" destination="FPp-9K-Bbu" id="qkm-j4-zPG"/>
+                <outlet property="forksLabel" destination="9TN-Uu-YOg" id="Mvb-PX-VE8"/>
+                <outlet property="fullNameLabel" destination="QCu-3n-Zzy" id="oPf-Ju-z5T"/>
+                <outlet property="issuesLabel" destination="AxZ-vz-4Z0" id="uJ8-gk-mbU"/>
+                <outlet property="languageLabel" destination="NFV-1H-G5s" id="J3m-je-bp1"/>
+                <outlet property="starsLabel" destination="M7X-KM-vXm" id="RRV-1A-7vv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="watchersLabel" destination="8Tb-as-6ue" id="d3R-VJ-afK"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

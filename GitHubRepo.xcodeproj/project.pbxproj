@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F987AEDE2BF98DCE000693CA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987AEDC2BF98DCE000693CA /* DetailViewController.swift */; };
+		F987AEDF2BF98DCE000693CA /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F987AEDD2BF98DCE000693CA /* DetailViewController.xib */; };
+		F987AEE12BF98F8D000693CA /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987AEE02BF98F8D000693CA /* DetailViewModel.swift */; };
 		F998B2592BF726DA0069EB08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998B2582BF726DA0069EB08 /* AppDelegate.swift */; };
 		F998B25B2BF726DA0069EB08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998B25A2BF726DA0069EB08 /* SceneDelegate.swift */; };
 		F998B25D2BF726DA0069EB08 /* SearchRepoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998B25C2BF726DA0069EB08 /* SearchRepoViewController.swift */; };
@@ -31,6 +34,9 @@
 /* Begin PBXFileReference section */
 		6D8607D6100750A1ED239F49 /* Pods-GitHubRepo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepo.release.xcconfig"; path = "Target Support Files/Pods-GitHubRepo/Pods-GitHubRepo.release.xcconfig"; sourceTree = "<group>"; };
 		87B36539ACD40D7E24C73939 /* Pods-GitHubRepo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubRepo.debug.xcconfig"; path = "Target Support Files/Pods-GitHubRepo/Pods-GitHubRepo.debug.xcconfig"; sourceTree = "<group>"; };
+		F987AEDC2BF98DCE000693CA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F987AEDD2BF98DCE000693CA /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		F987AEE02BF98F8D000693CA /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		F998B2552BF726DA0069EB08 /* GitHubRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F998B2582BF726DA0069EB08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F998B25A2BF726DA0069EB08 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				F998B2792BF73FF60069EB08 /* SearchRepoViewModel.swift */,
+				F987AEE02BF98F8D000693CA /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -161,6 +168,8 @@
 				F998B2632BF726DC0069EB08 /* LaunchScreen.storyboard */,
 				F998B27F2BF761780069EB08 /* SearchRepoListCell.swift */,
 				F998B2802BF761780069EB08 /* SearchRepoListCell.xib */,
+				F987AEDC2BF98DCE000693CA /* DetailViewController.swift */,
+				F987AEDD2BF98DCE000693CA /* DetailViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +246,7 @@
 			files = (
 				F998B2652BF726DC0069EB08 /* LaunchScreen.storyboard in Resources */,
 				F998B2622BF726DC0069EB08 /* Assets.xcassets in Resources */,
+				F987AEDF2BF98DCE000693CA /* DetailViewController.xib in Resources */,
 				F998B2602BF726DA0069EB08 /* Main.storyboard in Resources */,
 				F998B2822BF761780069EB08 /* SearchRepoListCell.xib in Resources */,
 			);
@@ -305,6 +315,8 @@
 				F9D89B0B2BFA2915003E1B9F /* RequestHeader.swift in Sources */,
                 F998B2812BF761780069EB08 /* SearchRepoListCell.swift in Sources */,
 				F9D89B0A2BFA2915003E1B9F /* RequestProtocol.swift in Sources */,
+                F987AEDE2BF98DCE000693CA /* DetailViewController.swift in Sources */,
+                F987AEE12BF98F8D000693CA /* DetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,14 @@ protocol SearchInteractorProtocol {
         pageSize: Int?,
         page: Int?
     ) -> Observable<SearchRepoList>
+
+    /// Retrieves detailed information about a specific repository.
+    ///
+    /// - Parameters:
+    ///   - owner: The owner of the repository.
+    ///   - repo: The name of the repository.
+    /// - Returns: An observable sequence of `DetailRepo`.
+    func getRepo(owner: String, repo: String) -> Observable<DetailRepo>
 }
 
 /// Concrete implementation of the `SearchInteractorProtocol` and `RequestProtocol`.
@@ -54,6 +62,19 @@ class SearchInteractor: SearchInteractorProtocol, RequestProtocol {
             parameters: api.parameters,
             header: api.header,
             type: SearchRepoList.self
+        )
+    }
+
+    func getRepo(owner: String, repo: String) -> Observable<DetailRepo> {
+        let api = GitHubAPI.getRepo(owner: owner, repo: repo)
+        let url = URL(string: api.baseURL + api.path)
+
+        return request(
+            url: url,
+            method: api.method,
+            parameters: api.parameters,
+            header: api.header,
+            type: DetailRepo.self
         )
     }
 }

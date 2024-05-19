@@ -38,7 +38,7 @@ class SearchRepoViewController: UIViewController {
 
         return searchController
     }()
-    
+
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
 
@@ -78,7 +78,7 @@ class SearchRepoViewController: UIViewController {
             .map { [SearchRepoSection(header: "", items: $0)] }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-        
+
         viewModel.outputs
             .repoListRelay
             .asObservable()
@@ -97,14 +97,38 @@ class SearchRepoViewController: UIViewController {
                 })
             }
             .disposed(by: disposeBag)
-
     }
 
-    /// Sets up the table view
+    /// Sets up the table view, including cell registration, keyboard dismissal mode, and adding refresh control.
     private func setUpTableView() {
         tableView.register(cell: SearchRepoListCell.self)
         tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(refreshControl)
+
+        // Handle item selection in the table view.
+        tableView.rx
+            .itemSelected
+            .withUnretained(self)
+            .subscribe { owner, indexPath in
+                // Deselect the selected row with animation.
+                owner.tableView.deselectRow(at: indexPath, animated: true)
+            }
+            .disposed(by: disposeBag)
+
+        // Handle the selection of a specific model (SearchRepoItem) in the table view.
+        tableView.rx
+            .modelSelected(SearchRepoItem.self)
+            .withUnretained(self)
+            .subscribe { owner, repoItem in
+                // Create an instance of DetailViewController with the selected repository's owner and name.
+                let detailViewController = DetailViewController(
+                    owner: repoItem.owner.login,
+                    repo: repoItem.name
+                )
+                // Push the DetailViewController onto the navigation stack.
+                owner.navigationController?.pushViewController(detailViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 
     private func configureNav() {

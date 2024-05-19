@@ -46,7 +46,7 @@ struct SearchRepoItem: Decodable {
 }
 
 /// This structure represents the owner of a repository.
-struct RepoOwner: Decodable {
+struct RepoOwner: Decodable, Equatable {
     /// The username of the GitHub user.
     let login: String
     /// The URL of the avatar image for the GitHub user.
@@ -54,7 +54,7 @@ struct RepoOwner: Decodable {
 }
 
 /// This structure represents detailed information about a single repository.
-struct DetailRepo: Decodable {
+struct DetailRepo: Decodable, Equatable {
     /// The owner of the repo
     let owner: RepoOwner
     /// Name of the repo
